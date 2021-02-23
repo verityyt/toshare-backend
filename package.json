@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "npx tsc && node ."
+    "compile": "tsc",
+    "start": "node ."
   },
   "engines": {
     "node": "14.x"

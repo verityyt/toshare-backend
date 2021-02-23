@@ -4,7 +4,7 @@ const app = express()
 const port = 6060
 
 app.get("/", (req, res) => {
-    res.send({ status: "success" })
+    res.send({ status: "success", code: 200} )
 })
 
 app.listen(port, () => {
