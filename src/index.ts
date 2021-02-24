@@ -1,4 +1,5 @@
 import express from "express"
+
 require('dotenv/config')
 
 const cors = require("cors")
@@ -28,14 +29,11 @@ app.get("/", (req, res) => {
     res.send({ status: "success", code: 200 })
 })
 
-app.get("/register", (req, res) => {
+app.post("/register", (req, res) => {
     console.log("Called /register")
 
-    const username = req.query.username as string
-    const password = req.query.password
-
-    console.log(username)
-    console.log(password)
+    const username = req.header("username") as string
+    const password = req.header("password") as string
 
     const pwHash = crypto.createHash("sha1").update(password).digest("hex")
 
