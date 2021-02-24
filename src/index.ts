@@ -48,12 +48,11 @@ app.get("/register", (req, res) => {
         id: getIdByUsername(username)
     }, process.env.JWT_SECRET)
 
-    res.send("Hello there!")
-
-    /*res.cookie("toshare", "Kenobi", {
+    res.cookie("toshare", token, {
         httpOnly: true,
         secure: true,
-        expires: date
+        expires: date,
+        domain: ".inceptioncloud.net"
     })
     res.redirect("https://inceptioncloud.net/toshare/register/?test=true")*/
 })
@@ -83,7 +82,7 @@ function saveAccount(username: string, password: string) {
     })
 
     account.save(function (err, doc) {
-        if(err) return console.error(err)
+        if (err) return console.error(err)
         console.log("Document saved!")
     })
 
