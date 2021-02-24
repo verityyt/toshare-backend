@@ -54,7 +54,7 @@ app.get("/register", (req, res) => {
         expires: date,
         domain: ".inceptioncloud.net"
     })
-    res.redirect("https://inceptioncloud.net/toshare/register/?test=true")*/
+    res.send({ redirect: "https://inceptioncloud.net/toshare/home" })
 })
 
 app.post("/callback", (req, res) => {
