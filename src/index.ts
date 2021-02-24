@@ -17,12 +17,16 @@ app.get("/", (req, res) => {
 
 app.get("/register", (req, res) => {
     console.log("Sending cookie...")
+
+    let date = new Date()
+    date.setDate(date.getDate() + 7)
+
     res.cookie("Obiwan", "Kenobi", {
         httpOnly: true,
-        secure: true
+        secure: true,
+        expires: date
     })
-    res.send("Send cookie!")
-    /*res.redirect("https://inceptioncloud.net/toshare/?test=true")*/
+    res.redirect("https://inceptioncloud.net/toshare/register/?test=true")
 })
 
 app.post("/callback", (req, res) => {
