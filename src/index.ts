@@ -88,3 +88,16 @@ function saveAccount(username: string, password: string) {
     })
 
 }
+
+function getIdByUsername(username: string): string {
+
+    const collection = database.collection("accounts")
+
+    collection.find().forEach((entry) => {
+        if (entry.username == username) {
+            return entry._id
+        }
+    })
+
+    return ""
+}
