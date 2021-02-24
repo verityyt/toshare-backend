@@ -1,9 +1,22 @@
 import express from "express"
+require('dotenv/config')
 
 const cors = require("cors")
 const cookieParser = require("cookie-parser")
+const jwt = require("jsonwebtoken")
+const crypto = require("crypto")
+const mongoose = require("mongoose")
+
 const app = express()
 const port = 6060
+
+mongoose.connect(`${process.env.DB_STRING}`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+
+const database = mongoose.connection
+database.on("error", console.error.bind(console, "connection error:"))
 
 app.use(cors({
     origin: ['https://inceptioncloud.net'],
