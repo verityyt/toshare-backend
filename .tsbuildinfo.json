@@ -492,8 +492,28 @@
         "affectsGlobalScope": false
       },
       "./src/index.ts": {
-        "version": "96b4a00cb87034a62dd1584ae77e5bc5bc73f4f3d8659fd83961b9249d2a3821",
+        "version": "289da6237969beafb5392da7bb30650bab36c553f52851f84c086ffbb3230ae2",
         "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6",
+        "affectsGlobalScope": false
+      },
+      "./node_modules/@types/bson/index.d.ts": {
+        "version": "2d23edce1d4a3b33280970484e17ca87b03e2829d8677ae1501de18269f0498f",
+        "signature": "2d23edce1d4a3b33280970484e17ca87b03e2829d8677ae1501de18269f0498f",
+        "affectsGlobalScope": false
+      },
+      "./node_modules/@types/crypto-js/index.d.ts": {
+        "version": "9764460948ab86a538eddf0dd7c98d41095ee2bc0bb092ec87e65ff799c98b78",
+        "signature": "9764460948ab86a538eddf0dd7c98d41095ee2bc0bb092ec87e65ff799c98b78",
+        "affectsGlobalScope": true
+      },
+      "./node_modules/@types/jsonwebtoken/index.d.ts": {
+        "version": "f67c920eba6ab8e4558cb9ab661d900188f101c5657e19b1e15829a1d491d46e",
+        "signature": "f67c920eba6ab8e4558cb9ab661d900188f101c5657e19b1e15829a1d491d46e",
+        "affectsGlobalScope": false
+      },
+      "./node_modules/@types/mongodb/index.d.ts": {
+        "version": "cdcaff91efe06dc77ea5e8b3672fd6ae722c91ad4bf804ea4f5017714abf7084",
+        "signature": "cdcaff91efe06dc77ea5e8b3672fd6ae722c91ad4bf804ea4f5017714abf7084",
         "affectsGlobalScope": false
       }
     },
@@ -513,6 +533,9 @@
         "./node_modules/@types/node/http.d.ts",
         "./node_modules/@types/node/index.d.ts"
       ],
+      "./node_modules/@types/bson/index.d.ts": [
+        "./node_modules/@types/node/index.d.ts"
+      ],
       "./node_modules/@types/connect/index.d.ts": [
         "./node_modules/@types/node/http.d.ts",
         "./node_modules/@types/node/index.d.ts"
@@ -529,6 +552,16 @@
         "./node_modules/@types/express-serve-static-core/index.d.ts",
         "./node_modules/@types/qs/index.d.ts",
         "./node_modules/@types/serve-static/index.d.ts"
+      ],
+      "./node_modules/@types/jsonwebtoken/index.d.ts": [
+        "./node_modules/@types/node/index.d.ts"
+      ],
+      "./node_modules/@types/mongodb/index.d.ts": [
+        "./node_modules/@types/bson/index.d.ts",
+        "./node_modules/@types/node/events.d.ts",
+        "./node_modules/@types/node/index.d.ts",
+        "./node_modules/@types/node/stream.d.ts",
+        "./node_modules/@types/node/tls.d.ts"
       ],
       "./node_modules/@types/node/assert.d.ts": [
         "./node_modules/@types/node/assert.d.ts"
@@ -776,6 +809,9 @@
         "./node_modules/@types/node/http.d.ts",
         "./node_modules/@types/node/index.d.ts"
       ],
+      "./node_modules/@types/bson/index.d.ts": [
+        "./node_modules/@types/node/index.d.ts"
+      ],
       "./node_modules/@types/connect/index.d.ts": [
         "./node_modules/@types/node/http.d.ts",
         "./node_modules/@types/node/index.d.ts"
@@ -792,6 +828,16 @@
         "./node_modules/@types/express-serve-static-core/index.d.ts",
         "./node_modules/@types/qs/index.d.ts",
         "./node_modules/@types/serve-static/index.d.ts"
+      ],
+      "./node_modules/@types/jsonwebtoken/index.d.ts": [
+        "./node_modules/@types/node/index.d.ts"
+      ],
+      "./node_modules/@types/mongodb/index.d.ts": [
+        "./node_modules/@types/bson/index.d.ts",
+        "./node_modules/@types/node/events.d.ts",
+        "./node_modules/@types/node/index.d.ts",
+        "./node_modules/@types/node/stream.d.ts",
+        "./node_modules/@types/node/tls.d.ts"
       ],
       "./node_modules/@types/node/assert.d.ts": [
         "./node_modules/@types/node/assert.d.ts"
@@ -1032,10 +1078,14 @@
     },
     "semanticDiagnosticsPerFile": [
       "./node_modules/@types/body-parser/index.d.ts",
+      "./node_modules/@types/bson/index.d.ts",
       "./node_modules/@types/connect/index.d.ts",
+      "./node_modules/@types/crypto-js/index.d.ts",
       "./node_modules/@types/express-serve-static-core/index.d.ts",
       "./node_modules/@types/express/index.d.ts",
+      "./node_modules/@types/jsonwebtoken/index.d.ts",
       "./node_modules/@types/mime/index.d.ts",
+      "./node_modules/@types/mongodb/index.d.ts",
       "./node_modules/@types/node/assert.d.ts",
       "./node_modules/@types/node/async_hooks.d.ts",
       "./node_modules/@types/node/base.d.ts",
