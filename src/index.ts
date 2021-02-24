@@ -51,3 +51,24 @@ app.post("/callback", (req, res) => {
 app.listen(port, () => {
     console.log(`spotify-mgk.rate app listening at https://toshare.inceptioncloud.net`)
 })
+
+function saveAccount(username: string, password: string) {
+
+    const AccountSchema = mongoose.Schema({
+        username: String,
+        password: String
+    })
+
+    const AccountModel = mongoose.model("account", AccountSchema, "accounts")
+
+    const account = new AccountModel({
+        username: username,
+        password: password
+    })
+
+    account.save(function (err, doc) {
+        if(err) return console.error(err)
+        console.log("Document saved!")
+    })
+
+}
