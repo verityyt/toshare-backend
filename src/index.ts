@@ -45,7 +45,7 @@ app.get("/register", (req, res) => {
     date.setDate(date.getDate() + 7)
 
     let token = jwt.sign({
-
+        id: getIdByUsername(username)
     }, process.env.JWT_SECRET)
 
     res.send("Hello there!")
