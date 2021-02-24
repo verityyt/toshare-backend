@@ -29,17 +29,33 @@ app.get("/", (req, res) => {
 })
 
 app.get("/register", (req, res) => {
-    console.log("Sending cookie...")
+    console.log("Called /register")
+
+    const username = req.query.username as string
+    const password = req.query.password
+
+    console.log(username)
+    console.log(password)
+
+    const pwHash = crypto.createHash("sha1").update(password).digest("hex")
+
+    saveAccount(username, pwHash)
 
     let date = new Date()
     date.setDate(date.getDate() + 7)
 
-    res.cookie("Obiwan", "Kenobi", {
+    let token = jwt.sign({
+
+    }, process.env.JWT_SECRET)
+
+    res.send("Hello there!")
+
+    /*res.cookie("toshare", "Kenobi", {
         httpOnly: true,
         secure: true,
         expires: date
     })
-    res.redirect("https://inceptioncloud.net/toshare/register/?test=true")
+    res.redirect("https://inceptioncloud.net/toshare/register/?test=true")*/
 })
 
 app.post("/callback", (req, res) => {
