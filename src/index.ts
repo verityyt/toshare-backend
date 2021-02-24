@@ -65,7 +65,7 @@ app.post("/callback", (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log(`spotify-mgk.rate app listening at https://toshare.inceptioncloud.net`)
+    console.log(`toshare-backend app listening at https://toshare.inceptioncloud.net`)
 })
 
 function saveAccount(username: string, password: string) {
