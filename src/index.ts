@@ -8,5 +8,5 @@ app.get("/", (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log(`spotify-mgk.rate app listening at http://localhost:${port}`)
+    console.log(`spotify-mgk.rate app listening at https://toshare.inceptioncloud.net`)
 })
