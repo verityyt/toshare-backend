@@ -11,13 +11,25 @@ const mongoose = require("mongoose")
 const app = express()
 const port = 6060
 
+/*--- MongoDB ---*/
+
 mongoose.connect(`${process.env.DB_STRING}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
 
 const database = mongoose.connection
+let collection = database.collection("accounts")
 database.on("error", console.error.bind(console, "connection error:"))
+
+const AccountSchema = mongoose.Schema({
+    username: String,
+    password: String
+})
+
+const AccountModel = mongoose.model("account", AccountSchema, "accounts")
+
+/*--- Cors & Cookies ---*/
 
 app.use(cors({
     origin: ['https://inceptioncloud.net'],
@@ -28,6 +40,8 @@ app.use(cookieParser())
 app.get("/", (req, res) => {
     res.send({ status: "success", code: 200 })
 })
+
+/*--- Routes ---*/
 
 app.post("/register", (req, res) => {
     console.log("Called /register")
@@ -65,14 +79,9 @@ app.listen(port, () => {
     console.log(`toshare-backend app listening at https://toshare.inceptioncloud.net`)
 })
 
+/*--- Database functions ---*/
+
 function saveAccount(username: string, password: string) {
-
-    const AccountSchema = mongoose.Schema({
-        username: String,
-        password: String
-    })
-
-    const AccountModel = mongoose.model("account", AccountSchema, "accounts")
 
     const account = new AccountModel({
         username: username,
