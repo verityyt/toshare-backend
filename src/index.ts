@@ -51,22 +51,37 @@ app.post("/register", (req, res) => {
 
     const pwHash = crypto.createHash("sha1").update(password).digest("hex")
 
-    saveAccount(username, pwHash)
-
-    let date = new Date()
-    date.setDate(date.getDate() + 7)
-
-    let token = jwt.sign({
-        id: getIdByUsername(username)
-    }, process.env.JWT_SECRET)
-
-    res.cookie("toshare", token, {
-        httpOnly: true,
-        secure: true,
-        expires: date,
-        domain: ".inceptioncloud.net"
+    const account = new AccountModel({
+        username: username,
+        password: pwHash
     })
-    res.send({ redirect: "https://inceptioncloud.net/toshare/home" })
+
+    account.save(function (err, doc) {
+        if (err) return console.error(err)
+        console.log("Document saved!")
+
+        let date = new Date()
+        date.setDate(date.getDate() + 7)
+
+        const id = doc._id
+
+        console.log(`UserId is ${id}`)
+
+        let token = jwt.sign({
+            id: id
+        }, process.env.JWT_SECRET)
+
+
+        res.cookie("toshare", token, {
+            httpOnly: true,
+            secure: true,
+            expires: date,
+            domain: ".inceptioncloud.net"
+        })
+        res.send({ redirect: "https://inceptioncloud.net/toshare/home" })
+
+    })
+
 })
 
 app.get("/read", (req, res) => {
@@ -89,34 +104,3 @@ app.post("/callback", (req, res) => {
 app.listen(port, () => {
     console.log(`toshare-backend app listening at https://toshare.inceptioncloud.net`)
 })
-
-/*--- Database functions ---*/
-
-function saveAccount(username: string, password: string) {
-
-    const account = new AccountModel({
-        username: username,
-        password: password
-    })
-
-    account.save(function (err, doc) {
-        if (err) return console.error(err)
-        console.log("Document saved!")
-    })
-
-}
-
-function getIdByUsername(username: string): string {
-
-    setTimeout(() => {
-        collection.find().forEach((entry) => {
-            if (entry.username == username) {
-                console.log("Id is:")
-                console.log(entry._id)
-                return entry._id
-            }
-        })
-    },500)
-
-    return ""
-}
