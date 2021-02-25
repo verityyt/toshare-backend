@@ -16,6 +16,7 @@
   "dependencies": {
     "@types/crypto-js": "^4.0.1",
     "@types/jsonwebtoken": "^8.5.0",
+    "@types/mongoose": "^5.10.3",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "crypto-js": "^4.0.0",
