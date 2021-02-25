@@ -69,6 +69,17 @@ app.post("/register", (req, res) => {
     res.send({ redirect: "https://inceptioncloud.net/toshare/home" })
 })
 
+app.get("/read", (req, res) => {
+    const cookies = req.cookies as Array<string>
+    const jwtCookie = cookies["toshare"]
+
+    const decoded = jwt.verify(jwtCookie, process.env.JWT_SECRET)
+    console.log("Decoded:")
+    console.log(decoded)
+
+    res.send({ test: true })
+})
+
 app.post("/callback", (req, res) => {
     const cookies = req.cookies as Array<string>
     console.log(cookies["Obiwan"])
