@@ -63,7 +63,7 @@ app.post("/register", (req, res) => {
 
             account.save(function (err, doc) {
                 if (err) return console.error(err)
-                console.log(`Saved account with username ${username} in database!`)
+                console.log(`Saved account with username '${username}' in database!`)
 
                 let date = new Date()
                 date.setDate(date.getDate() + 7)
@@ -99,11 +99,20 @@ app.get("/read", (req, res) => {
     const cookies = req.cookies as Array<string>
     const jwtCookie = cookies["toshare"]
 
-    const decoded = jwt.verify(jwtCookie, process.env.JWT_SECRET)
-    console.log("Decoded:")
-    console.log(decoded)
+    try {
 
-    res.send({ test: true })
+        const decoded = jwt.verify(jwtCookie, process.env.JWT_SECRET)
+        console.log("Decoded:")
+        console.log(decoded)
+
+        res.send({ test: true })
+
+    }catch (e) {
+
+        res.send( { redirect: "https://inceptioncloud.net/toshare/login" })
+
+    }
+
 })
 
 app.post("/callback", (req, res) => {
@@ -113,5 +122,5 @@ app.post("/callback", (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log(`toshare-backend app listening at https://toshare.inceptioncloud.net`)
+    console.log(`\ntoshare-backend app listening at https://toshare.inceptioncloud.net`)
 })
