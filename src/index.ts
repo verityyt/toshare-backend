@@ -173,6 +173,40 @@ app.get("/read", async (req, res) => {
     }
 })
 
+app.get("/done", async (req, res) => {
+    const cookies = req.cookies as Array<string>
+
+    if (cookies["toshare"] != null) {
+        if (req.header("id") != null && req.header("todo") != null) {
+            const jwtCookie = cookies["toshare"]
+            const id = req.header("id")
+            const todo = req.header("todo")
+
+            try {
+                const decoded = jwt.verify(jwtCookie, process.env.JWT_SECRET)
+
+                await TodoModel.findOneAndUpdate({
+                    _id: id,
+                    todo: todo
+                }, {
+                    status: "done"
+                }, {
+                    upsert: false
+                })
+
+                res.send({ "success": true })
+            } catch (e) {
+                console.log(e)
+                res.send({ redirect: "https://inceptioncloud.net/toshare/login" })
+            }
+        } else {
+            res.send({ error: "An error occurred! Please try again later." })
+        }
+    } else {
+        res.send({ redirect: "https://inceptioncloud.net/toshare/login" })
+    }
+})
+
 app.get("/add", (req, res) => {
     const cookies = req.cookies as Array<string>
 
