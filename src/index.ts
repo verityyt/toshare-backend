@@ -44,48 +44,49 @@ app.get("/", (req, res) => {
 /*--- Routes ---*/
 
 app.post("/register", (req, res) => {
+    if(req.header("username") != null && req.header("password") != null) {
+        const username = req.header("username") as string
+        const password = req.header("password") as string
 
-    const username = req.header("username") as string
-    const password = req.header("password") as string
+        const pwHash = crypto.createHash("sha1").update(password).digest("hex")
 
-    const pwHash = crypto.createHash("sha1").update(password).digest("hex")
-
-    collection.findOne({
-        username: username
-    }).then((doc) => {
-        if (doc == null) {
-            const account = new AccountModel({
-                username: username,
-                password: pwHash
-            })
-
-            account.save(function (err, doc) {
-                if (err) return console.error(err)
-                console.log(`Saved account with username '${username}' in database!`)
-
-                let date = new Date()
-                date.setDate(date.getDate() + 7)
-
-                const id = doc._id
-
-                let token = jwt.sign({
-                    id: id
-                }, process.env.JWT_SECRET)
-
-                res.cookie("toshare", token, {
-                    httpOnly: true,
-                    secure: true,
-                    expires: date,
-                    domain: ".inceptioncloud.net"
+        collection.findOne({
+            username: username
+        }).then((doc) => {
+            if (doc == null) {
+                const account = new AccountModel({
+                    username: username,
+                    password: pwHash
                 })
 
-                res.send({ redirect: "https://inceptioncloud.net/toshare/home" })
-            })
-        } else {
-            res.send({ error: "Username not available!" })
-        }
-    })
+                account.save(function (err, doc) {
+                    if (err) return console.error(err)
 
+                    let date = new Date()
+                    date.setDate(date.getDate() + 7)
+
+                    const id = doc._id
+
+                    let token = jwt.sign({
+                        id: id
+                    }, process.env.JWT_SECRET)
+
+                    res.cookie("toshare", token, {
+                        httpOnly: true,
+                        secure: true,
+                        expires: date,
+                        domain: ".inceptioncloud.net"
+                    })
+
+                    res.send({ redirect: "https://inceptioncloud.net/toshare/home" })
+                })
+            } else {
+                res.send({ error: "Username not available!" })
+            }
+        })
+    }else {
+        res.send({ error: "An error occurred! Please try to refresh to page and try again." })
+    }
 })
 
 app.post("/login", (req, res) => {
@@ -137,18 +138,22 @@ app.post("/login", (req, res) => {
 
 app.get("/read", (req, res) => {
     const cookies = req.cookies as Array<string>
-    const jwtCookie = cookies["toshare"]
 
-    try {
-        const decoded = jwt.verify(jwtCookie, process.env.JWT_SECRET)
-        console.log("Decoded:")
-        console.log(decoded)
+    if(cookies["toshare"] != null) {
+        const jwtCookie = cookies["toshare"]
 
-        res.send({ test: true })
-    } catch (e) {
+        try {
+            const decoded = jwt.verify(jwtCookie, process.env.JWT_SECRET)
+            console.log("Decoded:")
+            console.log(decoded)
+
+            res.send({ test: true })
+        } catch (e) {
+            res.send({ redirect: "https://inceptioncloud.net/toshare/login" })
+        }
+    }else {
         res.send({ redirect: "https://inceptioncloud.net/toshare/login" })
     }
-
 })
 
 app.listen(port, () => {
