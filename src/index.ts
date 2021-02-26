@@ -177,7 +177,7 @@ app.get("/done", async (req, res) => {
     const cookies = req.cookies as Array<string>
 
     if (cookies["toshare"] != null) {
-        if (req.header("id") != null && req.header("todo") != null) {
+        if (req.header("id") != null) {
             const jwtCookie = cookies["toshare"]
             const id = req.header("id")
 
