@@ -115,12 +115,6 @@ app.get("/read", (req, res) => {
 
 })
 
-app.post("/callback", (req, res) => {
-    const cookies = req.cookies as Array<string>
-    console.log(cookies["Obiwan"])
-    res.send({ status: "success" })
-})
-
 app.listen(port, () => {
     console.log(`\ntoshare-backend app listening at https://toshare.inceptioncloud.net`)
 })
