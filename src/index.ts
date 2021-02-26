@@ -88,6 +88,53 @@ app.post("/register", (req, res) => {
 
 })
 
+app.post("/login", (req, res) => {
+    if(req.header("username") != null && req.header("password") != null) {
+        const username = req.header("username") as string
+        const password = req.header("password") as string
+
+        const pwHash = crypto.createHash("sha1").update(password).digest("hex")
+
+        collection.findOne({
+            username: username
+        }).then((doc) => {
+            if (doc != null) {
+
+                const dbPwHash = doc.password
+
+                if(dbPwHash == pwHash) {
+
+                    const dbId = doc._id
+
+                    let date = new Date()
+                    date.setDate(date.getDate() + 7)
+
+                    let token = jwt.sign({
+                        id: dbId
+                    }, process.env.JWT_SECRET)
+
+                    res.cookie("toshare", token, {
+                        httpOnly: true,
+                        secure: true,
+                        expires: date,
+                        domain: ".inceptioncloud.net"
+                    })
+
+                    res.send({ redirect: "https://inceptioncloud.net/toshare/home" })
+
+                }else {
+                    res.send({ error: "Wrong username or password!" })
+                }
+
+            } else {
+                res.send({ error: "Wrong username or password!" })
+            }
+        })
+    }else {
+        res.send({ error: "An error occurred! Please try to refresh to page and try again." })
+    }
+})
+
 app.get("/read", (req, res) => {
     const cookies = req.cookies as Array<string>
     const jwtCookie = cookies["toshare"]
