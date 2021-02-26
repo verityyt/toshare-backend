@@ -180,14 +180,12 @@ app.get("/done", async (req, res) => {
         if (req.header("id") != null && req.header("todo") != null) {
             const jwtCookie = cookies["toshare"]
             const id = req.header("id")
-            const todo = req.header("todo")
 
             try {
                 const decoded = jwt.verify(jwtCookie, process.env.JWT_SECRET)
 
                 await TodoModel.findOneAndUpdate({
-                    _id: id,
-                    todo: todo
+                    _id: id
                 }, {
                     status: "done"
                 }, {
