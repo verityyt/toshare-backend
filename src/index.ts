@@ -44,41 +44,52 @@ app.get("/", (req, res) => {
 /*--- Routes ---*/
 
 app.post("/register", (req, res) => {
-    console.log("Called /register")
 
     const username = req.header("username") as string
     const password = req.header("password") as string
 
     const pwHash = crypto.createHash("sha1").update(password).digest("hex")
 
-    const account = new AccountModel({
-        username: username,
-        password: pwHash
-    })
+    collection.findOne({
+        username: username
+    }).then((doc) => {
 
-    account.save(function (err, doc) {
-        if (err) return console.error(err)
-        console.log("Document saved!")
+        if(doc == null) {
 
-        let date = new Date()
-        date.setDate(date.getDate() + 7)
+            const account = new AccountModel({
+                username: username,
+                password: pwHash
+            })
 
-        const id = doc._id
+            account.save(function (err, doc) {
+                if (err) return console.error(err)
+                console.log(`Saved account with username ${username} in database!`)
 
-        console.log(`UserId is ${id}`)
+                let date = new Date()
+                date.setDate(date.getDate() + 7)
 
-        let token = jwt.sign({
-            id: id
-        }, process.env.JWT_SECRET)
+                const id = doc._id
 
+                let token = jwt.sign({
+                    id: id
+                }, process.env.JWT_SECRET)
 
-        res.cookie("toshare", token, {
-            httpOnly: true,
-            secure: true,
-            expires: date,
-            domain: ".inceptioncloud.net"
-        })
-        res.send({ redirect: "https://inceptioncloud.net/toshare/home" })
+                res.cookie("toshare", token, {
+                    httpOnly: true,
+                    secure: true,
+                    expires: date,
+                    domain: ".inceptioncloud.net"
+                })
+
+                res.send({ redirect: "https://inceptioncloud.net/toshare/home" })
+
+            })
+
+        }else {
+
+            res.send({ error: "Username not available!" })
+
+        }
 
     })
 
