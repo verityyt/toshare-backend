@@ -53,9 +53,7 @@ app.post("/register", (req, res) => {
     collection.findOne({
         username: username
     }).then((doc) => {
-
-        if(doc == null) {
-
+        if (doc == null) {
             const account = new AccountModel({
                 username: username,
                 password: pwHash
@@ -82,15 +80,10 @@ app.post("/register", (req, res) => {
                 })
 
                 res.send({ redirect: "https://inceptioncloud.net/toshare/home" })
-
             })
-
-        }else {
-
+        } else {
             res.send({ error: "Username not available!" })
-
         }
-
     })
 
 })
@@ -100,17 +93,13 @@ app.get("/read", (req, res) => {
     const jwtCookie = cookies["toshare"]
 
     try {
-
         const decoded = jwt.verify(jwtCookie, process.env.JWT_SECRET)
         console.log("Decoded:")
         console.log(decoded)
 
         res.send({ test: true })
-
-    }catch (e) {
-
-        res.send( { redirect: "https://inceptioncloud.net/toshare/login" })
-
+    } catch (e) {
+        res.send({ redirect: "https://inceptioncloud.net/toshare/login" })
     }
 
 })
