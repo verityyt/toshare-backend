@@ -19,7 +19,8 @@ mongoose.connect(`${process.env.DB_STRING}`, {
 })
 
 const database = mongoose.connection
-let collection = database.collection("accounts")
+let accountsCollection = database.collection("accounts")
+let todosCollection = database.collection("todos")
 database.on("error", console.error.bind(console, "connection error:"))
 
 const AccountSchema = mongoose.Schema({
@@ -27,7 +28,14 @@ const AccountSchema = mongoose.Schema({
     password: String
 })
 
+const TodoSchema = mongoose.Schema({
+    userId: String,
+    todo: String,
+    status: String
+})
+
 const AccountModel = mongoose.model("account", AccountSchema, "accounts")
+const TodoModel = mongoose.model("todos", TodoSchema, "todos")
 
 /*--- Cors & Cookies ---*/
 
@@ -44,13 +52,13 @@ app.get("/", (req, res) => {
 /*--- Routes ---*/
 
 app.post("/register", (req, res) => {
-    if(req.header("username") != null && req.header("password") != null) {
+    if (req.header("username") != null && req.header("password") != null) {
         const username = req.header("username") as string
         const password = req.header("password") as string
 
         const pwHash = crypto.createHash("sha1").update(password).digest("hex")
 
-        collection.findOne({
+        accountsCollection.findOne({
             username: username
         }).then((doc) => {
             if (doc == null) {
@@ -84,26 +92,26 @@ app.post("/register", (req, res) => {
                 res.send({ error: "Username not available!" })
             }
         })
-    }else {
+    } else {
         res.send({ error: "An error occurred! Please try to refresh to page and try again." })
     }
 })
 
 app.post("/login", (req, res) => {
-    if(req.header("username") != null && req.header("password") != null) {
+    if (req.header("username") != null && req.header("password") != null) {
         const username = req.header("username") as string
         const password = req.header("password") as string
 
         const pwHash = crypto.createHash("sha1").update(password).digest("hex")
 
-        collection.findOne({
+        accountsCollection.findOne({
             username: username
         }).then((doc) => {
             if (doc != null) {
 
                 const dbPwHash = doc.password
 
-                if(dbPwHash == pwHash) {
+                if (dbPwHash == pwHash) {
 
                     const dbId = doc._id
 
@@ -123,7 +131,7 @@ app.post("/login", (req, res) => {
 
                     res.send({ redirect: "https://inceptioncloud.net/toshare/home" })
 
-                }else {
+                } else {
                     res.send({ error: "Wrong username or password!" })
                 }
 
@@ -131,27 +139,73 @@ app.post("/login", (req, res) => {
                 res.send({ error: "Wrong username or password!" })
             }
         })
-    }else {
+    } else {
         res.send({ error: "An error occurred! Please try to refresh to page and try again." })
     }
 })
 
-app.get("/read", (req, res) => {
+app.get("/read", async (req, res) => {
     const cookies = req.cookies as Array<string>
 
-    if(cookies["toshare"] != null) {
+    if (cookies["toshare"] != null) {
         const jwtCookie = cookies["toshare"]
 
         try {
             const decoded = jwt.verify(jwtCookie, process.env.JWT_SECRET)
-            console.log("Decoded:")
-            console.log(decoded)
+            const id = decoded.id
 
-            res.send({ test: true })
+            const todos: Array<Object> = []
+
+            await TodoModel.find({
+                userId: id
+            }, function (error, result) {
+                result.map(doc => {
+                    todos.push(doc)
+                })
+            })
+
+            res.send(todos)
         } catch (e) {
             res.send({ redirect: "https://inceptioncloud.net/toshare/login" })
         }
-    }else {
+    } else {
+        res.send({ redirect: "https://inceptioncloud.net/toshare/login" })
+    }
+})
+
+app.get("/add", (req, res) => {
+    const cookies = req.cookies as Array<string>
+
+    if (cookies["toshare"] != null) {
+
+        if (req.header("todo") != null) {
+            const todo = req.header("todo") as string
+            const jwtCookie = cookies["toshare"]
+
+            try {
+                const decoded = jwt.verify(jwtCookie, process.env.JWT_SECRET)
+                const id = decoded.id
+
+                const todoEntry = new TodoModel({
+                    userId: id,
+                    todo: todo,
+                    status: "open"
+                })
+
+                todoEntry.save(function (err, doc) {
+                    if (err) return console.error(err)
+                })
+
+                res.send({ test: true })
+            } catch (e) {
+                res.send({ redirect: "https://inceptioncloud.net/toshare/login" })
+            }
+        } else {
+            res.send({ error: "An error occurred! Please try again later." })
+        }
+
+
+    } else {
         res.send({ redirect: "https://inceptioncloud.net/toshare/login" })
     }
 })
