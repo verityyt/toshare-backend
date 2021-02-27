@@ -4,6 +4,7 @@ require('dotenv/config')
 
 const cors = require("cors")
 const cookieParser = require("cookie-parser")
+const bodyParser = require("body-parser")
 const jwt = require("jsonwebtoken")
 const crypto = require("crypto")
 const mongoose = require("mongoose")
@@ -44,6 +45,9 @@ app.use(cors({
     credentials: true
 }))
 app.use(cookieParser())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json());
+app.use(bodyParser.raw());
 
 app.get("/", (req, res) => {
     res.send({ status: "success", code: 200 })
@@ -52,9 +56,9 @@ app.get("/", (req, res) => {
 /*--- Routes ---*/
 
 app.post("/register", (req, res) => {
-    if (req.header("username") != null && req.header("password") != null) {
-        const username = req.header("username") as string
-        const password = req.header("password") as string
+    if(req.body.username != null && req.body.password != null) {
+        const username = req.body.username as string
+        const password = req.body.password as string
 
         const pwHash = crypto.createHash("sha1").update(password).digest("hex")
 
@@ -98,9 +102,9 @@ app.post("/register", (req, res) => {
 })
 
 app.post("/login", (req, res) => {
-    if (req.header("username") != null && req.header("password") != null) {
-        const username = req.header("username") as string
-        const password = req.header("password") as string
+    if (req.body.username != null && req.body.password != null) {
+        const username = req.body.username as string
+        const password = req.body.password as string
 
         const pwHash = crypto.createHash("sha1").update(password).digest("hex")
 
@@ -144,7 +148,7 @@ app.post("/login", (req, res) => {
     }
 })
 
-app.get("/read", async (req, res) => {
+app.post("/read", async (req, res) => {
     const cookies = req.cookies as Array<string>
 
     if (cookies["toshare"] != null) {
@@ -173,13 +177,13 @@ app.get("/read", async (req, res) => {
     }
 })
 
-app.get("/done", async (req, res) => {
+app.post("/done", async (req, res) => {
     const cookies = req.cookies as Array<string>
 
     if (cookies["toshare"] != null) {
-        if (req.header("id") != null) {
+        if (req.body.id != null) {
             const jwtCookie = cookies["toshare"]
-            const id = req.header("id")
+            const id = req.body.id
 
             try {
                 const decoded = jwt.verify(jwtCookie, process.env.JWT_SECRET)
@@ -205,13 +209,13 @@ app.get("/done", async (req, res) => {
     }
 })
 
-app.get("/add", (req, res) => {
+app.post("/add", (req, res) => {
     const cookies = req.cookies as Array<string>
 
     if (cookies["toshare"] != null) {
 
-        if (req.header("todo") != null) {
-            const todo = req.header("todo") as string
+        if (req.body.todo != null) {
+            const todo = req.body.todo as string
             const jwtCookie = cookies["toshare"]
 
             try {
@@ -242,13 +246,13 @@ app.get("/add", (req, res) => {
     }
 })
 
-app.get("/remove", async (req, res) => {
+app.post("/remove", async (req, res) => {
     const cookies = req.cookies as Array<string>
 
     if (cookies["toshare"] != null) {
-        if (req.header("id") != null) {
+        if (req.body.id != null) {
             const jwtCookie = cookies["toshare"]
-            const id = req.header("id")
+            const id = req.body.id
 
             try {
                 const decoded = jwt.verify(jwtCookie, process.env.JWT_SECRET)
