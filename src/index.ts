@@ -1,10 +1,12 @@
 import express from "express"
+import { connectDatabase } from "./utils/database.js";
 
 const cors = require("cors")
-require('dotenv/config')
 
 const cookieParser = require("cookie-parser")
 const bodyParser = require("body-parser")
+
+require("ejs")
 
 const app = express()
 const port = 6060
@@ -14,6 +16,9 @@ const port = 6060
 connectDatabase()
 
 /*--- Cors & Cookies ---*/
+
+app.set("view engine", "ejs")
+app.use(express.static("public"))
 
 app.use(cors({
     origin: ['https://inceptioncloud.net'],
