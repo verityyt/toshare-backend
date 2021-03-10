@@ -1,5 +1,6 @@
-const express = require("express")
+import express from "express";
 const router = express.Router()
+
 const cryptojs = require("crypto")
 const jwt = require("jsonwebtoken")
 
