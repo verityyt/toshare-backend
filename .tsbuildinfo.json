@@ -491,8 +491,48 @@
         "signature": "3b05c396564e51753e921e1cc4aae1cf7cd9be53c891cf2e81fa29f11c0bd373",
         "affectsGlobalScope": false
       },
+      "./src/utils/database.ts": {
+        "version": "fb510281b36ee14092f810d6b42645e816af62a34481b5ef26aaf8b66037cf4b",
+        "signature": "843892591ca3ff5ac8b71fe204271deff75e614b28bf41955a5d4faa39be35cf",
+        "affectsGlobalScope": false
+      },
       "./src/index.ts": {
-        "version": "99ed88082d0461bfcbc1e95ce77cba5b8c6b3c859c5cc4c98b9bc43be1dbd5ef",
+        "version": "f18f19987c2427401a4e8df021d23677aeb6659e2c2a15f5174f0cc296cd8823",
+        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6",
+        "affectsGlobalScope": false
+      },
+      "./src/routes/add.ts": {
+        "version": "830f8a149dd97eca2df9f80b9b2962cfcd568883d65eb39e352bde865a5aade1",
+        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6",
+        "affectsGlobalScope": false
+      },
+      "./src/routes/done.ts": {
+        "version": "bfb0afbc5062e885caa07e21609e6623aecdc241f7b3b9abf2f95e9cef7349f6",
+        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6",
+        "affectsGlobalScope": false
+      },
+      "./src/routes/login.ts": {
+        "version": "19e5f84a404b125a3d70c665dfbcdd6607d9eba10d091eef1f26603bd37f7270",
+        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6",
+        "affectsGlobalScope": false
+      },
+      "./src/routes/logout.ts": {
+        "version": "45a3cd3009c3cf4822693a1183f747a75d4ae77c6d1834ce48976aa5392d3ca5",
+        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6",
+        "affectsGlobalScope": false
+      },
+      "./src/routes/read.ts": {
+        "version": "2070e0c0529ac4ebf40b944919803b8944fdb87820db09ed215750532120ce1a",
+        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6",
+        "affectsGlobalScope": false
+      },
+      "./src/routes/register.ts": {
+        "version": "21b6b4734a38b14f221aeac66d15772c5a2af957b24805c6b67b98055bec4d5d",
+        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6",
+        "affectsGlobalScope": false
+      },
+      "./src/routes/remove.ts": {
+        "version": "67030f77bc5d0120930e291205fb2a2b00f3457d3e5e33e94f78240fa37bc24a",
         "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6",
         "affectsGlobalScope": false
       },
@@ -812,7 +852,35 @@
         "./node_modules/@types/node/index.d.ts"
       ],
       "./src/index.ts": [
+        "./node_modules/@types/express/index.d.ts",
+        "./src/utils/database.ts"
+      ],
+      "./src/routes/add.ts": [
+        "./node_modules/@types/express/index.d.ts",
+        "./src/utils/database.ts"
+      ],
+      "./src/routes/done.ts": [
+        "./node_modules/@types/express/index.d.ts",
+        "./src/utils/database.ts"
+      ],
+      "./src/routes/login.ts": [
+        "./node_modules/@types/express/index.d.ts",
+        "./src/utils/database.ts"
+      ],
+      "./src/routes/logout.ts": [
         "./node_modules/@types/express/index.d.ts"
+      ],
+      "./src/routes/read.ts": [
+        "./node_modules/@types/express/index.d.ts",
+        "./src/utils/database.ts"
+      ],
+      "./src/routes/register.ts": [
+        "./node_modules/@types/express/index.d.ts",
+        "./src/utils/database.ts"
+      ],
+      "./src/routes/remove.ts": [
+        "./node_modules/@types/express/index.d.ts",
+        "./src/utils/database.ts"
       ]
     },
     "exportedModulesMap": {
@@ -1199,7 +1267,15 @@
       "./node_modules/typescript/lib/lib.esnext.intl.d.ts",
       "./node_modules/typescript/lib/lib.scripthost.d.ts",
       "./node_modules/typescript/lib/lib.webworker.importscripts.d.ts",
-      "./src/index.ts"
+      "./src/index.ts",
+      "./src/routes/add.ts",
+      "./src/routes/done.ts",
+      "./src/routes/login.ts",
+      "./src/routes/logout.ts",
+      "./src/routes/read.ts",
+      "./src/routes/register.ts",
+      "./src/routes/remove.ts",
+      "./src/utils/database.ts"
     ]
   },
   "version": "4.1.5"
