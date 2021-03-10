@@ -170,9 +170,22 @@ app.post("/read", async (req, res) => {
 
             res.send(todos)
         } catch (e) {
+            console.log(e)
+            res.cookie("toshare", "", {
+                httpOnly: true,
+                secure: true,
+                expires: new Date(0),
+                domain: ".inceptioncloud.net"
+            })
             res.send({ redirect: "https://inceptioncloud.net/toshare/login" })
         }
     } else {
+        res.cookie("toshare", "", {
+            httpOnly: true,
+            secure: true,
+            expires: new Date(0),
+            domain: ".inceptioncloud.net"
+        })
         res.send({ redirect: "https://inceptioncloud.net/toshare/login" })
     }
 })
@@ -199,12 +212,24 @@ app.post("/done", async (req, res) => {
                 res.send({ "success": true })
             } catch (e) {
                 console.log(e)
+                res.cookie("toshare", "", {
+                    httpOnly: true,
+                    secure: true,
+                    expires: new Date(0),
+                    domain: ".inceptioncloud.net"
+                })
                 res.send({ redirect: "https://inceptioncloud.net/toshare/login" })
             }
         } else {
             res.send({ error: "An error occurred! Please try again later." })
         }
     } else {
+        res.cookie("toshare", "", {
+            httpOnly: true,
+            secure: true,
+            expires: new Date(0),
+            domain: ".inceptioncloud.net"
+        })
         res.send({ redirect: "https://inceptioncloud.net/toshare/login" })
     }
 })
@@ -234,6 +259,13 @@ app.post("/add", (req, res) => {
 
                 res.send({ test: true })
             } catch (e) {
+                console.log(e)
+                res.cookie("toshare", "", {
+                    httpOnly: true,
+                    secure: true,
+                    expires: new Date(0),
+                    domain: ".inceptioncloud.net"
+                })
                 res.send({ redirect: "https://inceptioncloud.net/toshare/login" })
             }
         } else {
@@ -242,6 +274,12 @@ app.post("/add", (req, res) => {
 
 
     } else {
+        res.cookie("toshare", "", {
+            httpOnly: true,
+            secure: true,
+            expires: new Date(0),
+            domain: ".inceptioncloud.net"
+        })
         res.send({ redirect: "https://inceptioncloud.net/toshare/login" })
     }
 })
@@ -264,12 +302,24 @@ app.post("/remove", async (req, res) => {
                 res.send({ "success": true })
             } catch (e) {
                 console.log(e)
+                res.cookie("toshare", "", {
+                    httpOnly: true,
+                    secure: true,
+                    expires: new Date(0),
+                    domain: ".inceptioncloud.net"
+                })
                 res.send({ redirect: "https://inceptioncloud.net/toshare/login" })
             }
         } else {
             res.send({ error: "An error occurred! Please try again later." })
         }
     } else {
+        res.cookie("toshare", "", {
+            httpOnly: true,
+            secure: true,
+            expires: new Date(0),
+            domain: ".inceptioncloud.net"
+        })
         res.send({ redirect: "https://inceptioncloud.net/toshare/login" })
     }
 })
