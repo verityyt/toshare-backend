@@ -1,26 +1,28 @@
 const mongoose = require("mongoose")
 
-const database = mongoose.connection
+require('dotenv/config')
 
-const accountsCollection = database.collection("accounts")
-const todosCollection = database.collection("todos")
+export const database = mongoose.connection
+
+export const accountsCollection = database.collection("accounts")
+export const todosCollection = database.collection("todos")
 database.on("error", console.error.bind(console, "connection error:"))
 
-const AccountSchema = mongoose.Schema({
+export const AccountSchema = mongoose.Schema({
     username: String,
     password: String
 })
 
-const TodoSchema = mongoose.Schema({
+export const TodoSchema = mongoose.Schema({
     userId: String,
     todo: String,
     status: String
 })
 
-const AccountModel = mongoose.model("account", AccountSchema, "accounts")
-const TodoModel = mongoose.model("todos", TodoSchema, "todos")
+export const AccountModel = mongoose.model("account", AccountSchema, "accounts")
+export const TodoModel = mongoose.model("todos", TodoSchema, "todos")
 
-function connectDatabase() {
+export function connectDatabase() {
     mongoose.connect(`${process.env.DB_STRING}`, {
         useNewUrlParser: true,
         useUnifiedTopology: true
