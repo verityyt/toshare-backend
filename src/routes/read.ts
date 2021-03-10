@@ -1,9 +1,10 @@
 import express from "express";
+import { TodoModel } from "../utils/database.js";
 const router = express.Router()
 
 const jwt = require("jsonwebtoken")
 
-router.post("/read", async (req, res) => {
+router.post("/", async (req, res) => {
     const cookies = req.cookies as Array<string>
 
     if (cookies["toshare"] != null) {
@@ -44,3 +45,5 @@ router.post("/read", async (req, res) => {
         res.send({ redirect: "https://inceptioncloud.net/toshare/login" })
     }
 })
+
+module.exports = router;

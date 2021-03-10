@@ -3,7 +3,7 @@ const router = express.Router()
 
 const jwt = require("jsonwebtoken")
 
-router.post("/logout", (req, res) => {
+router.post("/", (req, res) => {
     const cookies = req.cookies as Array<string>
 
     if (cookies["toshare"] != null) {
@@ -41,3 +41,5 @@ router.post("/logout", (req, res) => {
         res.send({ redirect: "https://inceptioncloud.net/toshare/login" })
     }
 })
+
+module.exports = router;

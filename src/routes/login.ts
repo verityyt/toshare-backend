@@ -1,10 +1,12 @@
 import express from "express";
+import { accountsCollection } from "../utils/database.js";
 const router = express.Router()
 
 const cryptojs = require("crypto")
 const jwt = require("jsonwebtoken")
 
-router.post("/login", (req, res) => {
+router.post("/", (req, res) => {
+
     if (req.body.username != null && req.body.password != null) {
         const username = req.body.username as string
         const password = req.body.password as string
@@ -50,3 +52,5 @@ router.post("/login", (req, res) => {
         res.send({ error: "An error occurred! Please try to refresh to page and try again." })
     }
 })
+
+module.exports = router;
