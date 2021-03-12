@@ -21,7 +21,7 @@ app.set("view engine", "ejs")
 app.use(express.static("public"))
 
 app.use(cors({
-    origin: ['https://inceptioncloud.net'],
+    origin: ['https://inceptioncloud.net','http://verity-network.de/'],
     credentials: true
 }))
 app.use(cookieParser())
