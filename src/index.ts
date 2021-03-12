@@ -56,6 +56,9 @@ app.use("/register", registerRoute)
 const removeRoute = require("./routes/remove.js")
 app.use("/remove", removeRoute)
 
+const profileRoute = require("./routes/profile.js")
+app.use("/profile", profileRoute)
+
 app.listen(port, () => {
     console.log(`\ntoshare-backend app listening at https://toshare.inceptioncloud.net`)
 })
