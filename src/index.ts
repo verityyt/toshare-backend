@@ -21,7 +21,7 @@ app.set("view engine", "ejs")
 app.use(express.static("public"))
 
 app.use(cors({
-    origin: ['https://inceptioncloud.net','http://verity-network.de/'],
+    origin: ['https://verity-network.de/'],
     credentials: true
 }))
 app.use(cookieParser())
@@ -60,5 +60,5 @@ const profileRoute = require("./routes/profile.js")
 app.use("/profile", profileRoute)
 
 app.listen(port, () => {
-    console.log(`\ntoshare-backend app listening at https://toshare.inceptioncloud.net`)
+    console.log(`\ntoshare-backend app listening at https://toshare-backend.verity-network.de`)
 })
