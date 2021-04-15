@@ -21,7 +21,7 @@ app.set("view engine", "ejs")
 app.use(express.static("public"))
 
 app.use(cors({
-    origin: ['https://verity-network.de/', 'https://toshare.verity-network.de/'],
+    origin: ['https://verity-network.de', 'https://toshare.verity-network.de'],
     credentials: true
 }))
 app.use(cookieParser())
