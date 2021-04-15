@@ -29,9 +29,9 @@ router.post("/", async (req, res) => {
                         httpOnly: true,
                         secure: true,
                         expires: new Date(0),
-                        domain: ".inceptioncloud.net"
+                        domain: ".verity-network.de"
                     })
-                    res.send({ redirect: "https://inceptioncloud.net/toshare/login" })
+                    res.send({ redirect: "https://toshare.verity-network.de/login" })
                 }
             })
 
@@ -41,18 +41,18 @@ router.post("/", async (req, res) => {
                 httpOnly: true,
                 secure: true,
                 expires: new Date(0),
-                domain: ".inceptioncloud.net"
+                domain: ".verity-network.de"
             })
-            res.send({ redirect: "https://inceptioncloud.net/toshare/login" })
+            res.send({ redirect: "https://toshare.verity-network.de/login" })
         }
     } else {
         res.cookie("toshare", "", {
             httpOnly: true,
             secure: true,
             expires: new Date(0),
-            domain: ".inceptioncloud.net"
+            domain: ".verity-network.de"
         })
-        res.send({ redirect: "https://inceptioncloud.net/toshare/login" })
+        res.send({ redirect: "https://toshare.verity-network.de/login" })
     }
 })
 

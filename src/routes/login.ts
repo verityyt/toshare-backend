@@ -35,10 +35,10 @@ router.post("/", (req, res) => {
                         httpOnly: true,
                         secure: true,
                         expires: date,
-                        domain: ".inceptioncloud.net"
+                        domain: ".verity-network.de"
                     })
 
-                    res.send({ redirect: "https://inceptioncloud.net/toshare/home" })
+                    res.send({ redirect: "https://toshare.verity-network.de/home" })
 
                 } else {
                     res.send({ error: "Wrong username or password!" })
